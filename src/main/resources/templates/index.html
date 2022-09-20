@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+    <title>Index</title>
+</head>
+<style>
+
+.rounded{
+ border-top-left-radius: 20px!important;
+ border-top-right-radius: 20px!important;
+ border-bottom-left-radius: 20px!important;
+  border-bottom-right-radius: 20px!important;
+  padding-top:5px;
+  padding-bottom:5px;
+  background-color: transparent;
+}
+.gradient-custom-4 {
+/* fallback for old browsers */
+background: #84fab0;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+
+background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");body{background-color: #eee;font-family: "Poppins", sans-serif;font-weight: 300}.card{border:none}.ellipsis{color: #a09c9c}hr{color: #a09c9c;margin-top: 4px;margin-bottom: 8px}.muted-color{color: #a09c9c;font-size: 13px}.ellipsis i{margin-top: 3px;cursor: pointer}.icons i{font-size: 25px}.icons .fa-heart{color: red}.icons .fa-smile-o{color: yellow;font-size: 29px}.rounded-image{border-radius: 50%!important;display: flex;justify-content: center;align-items: center;height: 50px;width: 50px}.name{font-weight: 600}.comment-text{font-size: 12px}.status small{margin-right: 10px;color: blue}.form-control{border-radius: 26px}.comment-input{position: relative}.fonts{position: absolute;right: 13px;top:8px;color: #a09c9c}.form-control:focus{color: #495057;background-color: #fff;border-color: #8bbafe;outline: 0;box-shadow: none}
+</style>
+
+<nav class="navbar justify-content-between " >
+    <a class="navbar-brand" href="#">
+        <img src="/esociety_logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        E-society
+    </a>
+    <form class="form-inline" th:action="@{/home/profile}" method="post">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+
+
+
+
+
+
+
+<div class="container-fluid ">
+    <div class="row ">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 "style="background-color:#f2f2f2;">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-0 pt-2 text-white min-vh-100">
+
+                <ul class="nav nav-pills flex-column mb-sm-2 mb-0 align-items-center align-items-sm-start mt-2" style="width:100%;" id="menu">
+                    <li class="list-group-item list-group-item-action px-3 border-0 rounded mt-4" >
+                        <a href="#" class="nav-link align-middle px-0" >
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline" >Home</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action px-3 border-0 rounded mt-4">
+                        <a th:href="@{/home/me}" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-person"></i> <span class="ms-1 d-none d-sm-inline  " >Profile</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action px-3 border-0 rounded mt-4">
+                        <a th:href="@{/home/posts}" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">My Posts</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action px-3 border-0 rounded mt-4">
+                    <a href="#" class="nav-link align-middle px-0">
+                        <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                    </a>
+                </li>
+                    <li class="list-group-item list-group-item-action px-3 border-0 rounded mt-4">
+                        <a href="#" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action px-3 border-0 rounded mt-4">
+                        <a href="#" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown pb-4">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">loser</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="#">New project...</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+      <div class="col-md" >
+          <section class="main-content">
+
+         <form method="post" th:action="@{/upload}" enctype="multipart/form-data" th:object="${post}">
+             <div class="container mt-5 mb-10">
+                <div class="row justify-content-center">
+                    <div class="col-md-6" >
+                    <div class="post-block ">
+
+                             <div class="d-flex flex-row align-items-center"> <img th:src="${User.getPhoto()}" width="50" class="rounded-circle">
+                                <div class="d-flex flex-column ml-2"> <span class="font-weight-bold" th:text="${User.getEmail()}"></span> <small class="text-success">e-society</small> </div>
+                             </div>
+
+
+                        <div class="p-2">
+                            <input type="file"  th:field="*{image}"  accept="image/*" class="form-control form-control-sm rounded-0" value="Add photo">
+                        </div>
+                         <div class="p-2">
+
+                            <textarea class="form-control rounded-0"  th:field="*{description}" id="exampleFormControlTextarea1" placeholder="Make a new post" rows="3"></textarea>
+                         </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-primary me-md-2">Share</button>
+                        </div>
+                        <br>
+
+
+                    </div>
+                </div>
+             </div>
+         </form>
+
+
+    <th:block th:each="post: ${Feed}" >
+
+   <div class="container" th:if="${post.getItem()=='facebook'}" >
+         <div class="row justify-content-center">
+             <div class="col-md-6">
+                 <div  class="post-block border-facebook">
+
+                     <div class="d-flex justify-content-between">
+                         <div class="d-flex mb-3">
+                             <div class="mr-2">
+                                 <a href="#!" class="text-dark"><img th:src="${post.getUser().getPhoto()}" class="author-img"></a>
+                             </div>
+                             <div>
+                                 <h5 class="mb-0" th:text="${post.getUser().getSocial().getFacebookName()}"></h5>
+                                 <small class="text-facebook">facebook</small>
+                             </div>
+                         </div>
+                         <div class="post-block__user-options">
+                             <a href="#!"  data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                             </a>
+                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
+                                 <a class="dropdown-item text-dark" href="#!"><i class="fa fa-pencil mr-1"></i>Edit</a>
+                                 <a class="dropdown-item text-danger" href="#!"><i class="fa fa-trash mr-1"></i>Delete</a>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="post-block__content ">
+                         <p th:text="${post.getDescription()}"></p>
+                         <img th:src="${post.getImage()}" class="post-block__content img">
+                     </div>
+                     <hr>
+                     <div class="mb-3">
+                         <div class="d-flex justify-content-between mb-2">
+                             <div class="d-flex">
+                                 <a href="#!" class="text-danger mr-2"><span><i class="fa fa-heart"></i></span></a>
+                                 <a href="#!" class="text-dark mr-2"><span>Comment</span></a>
+                             </div>
+
+                         </div>
+                         <p class="mb-0">Liked by <a href="#!" class="text-muted font-weight-bold">John doe</a> & <a href="#!" class="text-muted font-weight-bold">25 others</a></p>
+                     </div>
+
+                     <div class="post-block__comments">
+
+                         <!-- Comment Input -->
+
+                         <!-- Comment content -->
+
+                         <!-- More Comments -->
+
+
+                     </div>
+                 </div>
+             </div>
+         </div>
+   </div>
+
+        <div class="container" th:unless="${post.getItem()=='facebook'}" >
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div  class="post-block border-esociety">
+
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex mb-3">
+                                <div class="mr-2">
+                                    <a href="#!" class="text-dark"><img th:src="${post.getUser().getPhoto()}" class="author-img"></a>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0" th:text="${post.getUser().getSocial().getFacebookName()}"></h5>
+                                    <small class="text-success">e-society</small>
+                                </div>
+                            </div>
+                            <div class="post-block__user-options">
+                                <a href="#!" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
+                                    <a class="dropdown-item text-dark" href="#!"><i class="fa fa-pencil mr-1"></i>Edit</a>
+                                    <a class="dropdown-item text-danger" href="#!"><i class="fa fa-trash mr-1"></i>Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-block__content ">
+                            <p th:text="${post.getDescription()}"></p>
+                            <img th:src="${post.getImage()}"  class="post-block__content img">
+                        </div>
+                        <hr>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <div class="d-flex">
+                                    <a href="#!" class="text-danger mr-2"><span><i class="fa fa-heart"></i></span></a>
+                                    <a href="#!" class="text-dark mr-2"><span>Comment</span></a>
+                                </div>
+
+                            </div>
+                            <p class="mb-0">Liked by <a href="#!" class="text-muted font-weight-bold">John doe</a> & <a href="#!" class="text-muted font-weight-bold">25 others</a></p>
+                        </div>
+                        <hr>
+                        <div class="post-block__comments">
+                            <!-- Comment Input -->
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Add your comment">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" ><i class="fa fa-paper-plane"></i></button>
+                                </div>
+                            </div>
+                            <!-- Comment content -->
+                            <th:block th:each="comment: ${post.getComments()}" >
+                                <div class="comment-view-box mb-3">
+                                    <div class="d-flex mb-2">
+                                        <img th:src="${comment.getUser().getPhoto()}" class="author-img author-img--small mr-2">
+                                        <div>
+                                            <h6 class="mb-1" th:text="${comment.getUser().getFirstname()} +' ' + ${comment.getUser().getLastname()}"><small class="text-muted">1m</small></h6>
+                                            <p class="mb-1" th:text="${comment.getDescription()}"></p>
+                                            <div class="d-flex">
+                                                <a href="#!" class="text-dark mr-2"><span><i class="fa fa-heart-o"></i></span></a>
+                                                <span>Reply</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            </th:block>
+                            <!-- More Comments -->
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </th:block>
+          </section>
+</div>
+
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
