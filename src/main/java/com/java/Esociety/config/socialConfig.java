@@ -47,7 +47,7 @@ public class socialConfig {
     DataSource dataSource;
 
     @Bean
-    private ConnectionFactoryLocator addConnectionFactories() {
+    public ConnectionFactoryLocator addConnectionFactories() {
         ConnectionFactoryRegistry registry = new ConnectionFactoryRegistry();
         registry.addConnectionFactory(new FacebookConnectionFactory(
             "1044551659727911",
