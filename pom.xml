@@ -14,7 +14,11 @@
 	<name>Esociety</name>
 	<description>Social Media</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
+
+			<maven.compiler.source>1.8</maven.compiler.source>
+			<maven.compiler.target>1.8</maven.compiler.target>
+
 	</properties>
 	<dependencies>
 		<dependency>
