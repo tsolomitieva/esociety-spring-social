@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/e-society-app-0.0.1-SNAPSHOT.jar -Dserver.port=$PORT
+web: node index.js
