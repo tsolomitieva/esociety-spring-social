@@ -1,1 +1,1 @@
-web: node index.js
+web: java -jar target/e-society-app-1.0.0.jar
