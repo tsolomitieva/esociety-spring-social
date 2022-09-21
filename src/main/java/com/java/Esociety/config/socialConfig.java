@@ -21,6 +21,7 @@ import org.springframework.social.config.annotation.SocialConfigurer;
 import org.springframework.social.connect.*;
 
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.support.ConnectionFactoryRegistry;
 import org.springframework.social.connect.web.ConnectController;
 import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.facebook.api.Facebook;
@@ -31,60 +32,57 @@ import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.social.twitter.connect.TwitterConnectionFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
 
 @Configuration
-@EnableSocial
 
-public class socialConfig implements SocialConfigurer {
 
+public class socialConfig {
 
     @Autowired
     DataSource dataSource;
 
-
-
-    @Autowired
-    userRepository userRepository;
-
-    @Override
-    public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer, Environment environment) {
-        connectionFactoryConfigurer.addConnectionFactory(new FacebookConnectionFactory(
+    @Bean
+    private ConnectionFactoryLocator addConnectionFactories() {
+        ConnectionFactoryRegistry registry = new ConnectionFactoryRegistry();
+        registry.addConnectionFactory(new FacebookConnectionFactory(
             "1044551659727911",
            "c3ee51fc1b33108f554a8a9ff8415115"));
 
-        connectionFactoryConfigurer.addConnectionFactory(new InstagramConnectionFactory("807956450244413","5fe3bbfb4e8bce50846518d56d431df6"));
-        connectionFactoryConfigurer.addConnectionFactory(new TwitterConnectionFactory("JN6fhreV3vCMs9a6SVfKs36sQ", "g07NDnAipVHFwPTEDBGnUUApyE3y2uZvNS81r4MnqiMNIqBDN9"));
-
+        registry.addConnectionFactory(new InstagramConnectionFactory("807956450244413","5fe3bbfb4e8bce50846518d56d431df6"));
+        registry.addConnectionFactory(new TwitterConnectionFactory("JN6fhreV3vCMs9a6SVfKs36sQ", "g07NDnAipVHFwPTEDBGnUUApyE3y2uZvNS81r4MnqiMNIqBDN9"));
+       return registry;
 
     }
 
-    @Override
-    public UserIdSource getUserIdSource() {
-        return new AuthenticationNameUserIdSource();
+
+    @Bean
+    public UsersConnectionRepository getUsersConnectionRepository() {
+        return new JdbcUsersConnectionRepository(dataSource, addConnectionFactories(), Encryptors.noOpText());
+
+     }
+
+    @Bean
+    @Scope(value="request", proxyMode=ScopedProxyMode.INTERFACES)
+    public ConnectionRepository connectionRepository(){
+       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+        throw new IllegalStateException("Unable to get a ConnectionRepository: no user signed in");
     }
+        return getUsersConnectionRepository().createConnectionRepository(authentication.getName());
+}
 
 
-    @Override
-    public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        return new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
-
-   }
-
-  @Bean
-  public TwitterTemplate twitterTemplate(){
-      TwitterTemplate twitter= new TwitterTemplate("JN6fhreV3vCMs9a6SVfKs36sQ","g07NDnAipVHFwPTEDBGnUUApyE3y2uZvNS81r4MnqiMNIqBDN9","1568177439129444354-dmxrONmIPhDw5xRihszItHlldDXl4E","jiFTlGXP7QfxNrXEtov9SUGSEsMhHOeqtZ0J5U20U00GK");
-      return twitter;
-  }
 
 
   @Bean
-   public ConnectController connectController(ConnectionFactoryLocator connectionFactoryLocator, ConnectionRepository connectionRepository) {
-        ConnectController controller = new ConnectController(connectionFactoryLocator, connectionRepository);
-       controller.setApplicationUrl("");
+   public ConnectController connectController() {
+        ConnectController controller = new ConnectController(addConnectionFactories(), connectionRepository());
+
         controller.setViewPath("");
 
    return controller ;

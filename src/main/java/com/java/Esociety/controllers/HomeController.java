@@ -69,15 +69,16 @@ public class HomeController {
     @RequestMapping("/home")
     public String home(Model model)
     {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.findByEmail(auth.getName());
         if(user==null) System.out.println("User is null");
         model.addAttribute("User",user);
 
         model.addAttribute("post",new Post());
-      // List<Post>  posts= new ArrayList<Post>();
+       List<Post>  posts= new ArrayList<Post>();
 
-       List<Post> posts=facebookService.getFacebookFeed();
+      // List<Post> posts=facebookService.getFacebookFeed();
         posts.addAll(user.getPosts());
         Collections.shuffle(posts);
         model.addAttribute("Feed",posts);

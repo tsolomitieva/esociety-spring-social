@@ -28,8 +28,7 @@ public class TwitterService {
     @Autowired
     SocialRepository socialRepository;
 
-    @Autowired
-    TwitterTemplate twitterTemplate;
+
 
     public void saveTwitterData(){
 
