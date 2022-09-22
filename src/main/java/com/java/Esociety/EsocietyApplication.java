@@ -30,7 +30,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.sql.DataSource;
 
 @EnableWebSecurity
-@EnableWebMvc
+
 @SpringBootApplication
 
 
