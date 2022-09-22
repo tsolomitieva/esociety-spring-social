@@ -3,9 +3,11 @@ package com.java.Esociety;
 import com.java.Esociety.services.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -28,6 +30,9 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 @EnableWebMvc
 @Configuration
+@ComponentScan
+@AutoConfiguration
+
 
 public class EsocietyApplication extends WebSecurityConfigurerAdapter{
 
