@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
@@ -45,6 +46,20 @@ public class config extends WebSecurityConfigurerAdapter {
 
     }
 
+    @Bean
+    public TextEncryptor textEncryptor(){
+        return new TextEncryptor() {
+            @Override
+            public String encrypt(String text) {
+                return text;
+            }
+
+            @Override
+            public String decrypt(String encryptedText) {
+                return encryptedText;
+            }
+        };
+    }
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
