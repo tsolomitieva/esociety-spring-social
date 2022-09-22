@@ -1,1 +1,1 @@
-web: java -jar target/Esociety-0.0.1-SNAPSHOT.jar
+web: java -jar target/classes/Esociety.jar
