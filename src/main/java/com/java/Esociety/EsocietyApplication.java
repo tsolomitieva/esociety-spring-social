@@ -20,13 +20,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.support.ConnectionFactoryRegistry;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
 
 @EnableWebSecurity
 @SpringBootApplication
-
+@EnableWebMvc
 public class EsocietyApplication extends WebSecurityConfigurerAdapter{
 
 	public static void main(String[] args) {
