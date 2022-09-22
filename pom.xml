@@ -143,11 +143,7 @@
 
 </repositories>
 	<build>
-		<plugins>
-
-
-
-		</plugins>
+	
 	</build>
 
 </project>
