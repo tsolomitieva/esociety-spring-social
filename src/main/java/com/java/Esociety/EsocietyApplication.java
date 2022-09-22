@@ -26,8 +26,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.sql.DataSource;
 
 @EnableWebSecurity
-@SpringBootApplication
 @EnableWebMvc
+
+
 public class EsocietyApplication extends WebSecurityConfigurerAdapter{
 
 	public static void main(String[] args) {
