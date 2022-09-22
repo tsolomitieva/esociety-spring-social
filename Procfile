@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT -jar classes/artifact/Esociety_jar/Esociety.jar
