@@ -66,7 +66,7 @@ public class HomeController {
     @Autowired
     TextEncryptor textEncryptor;
 
-    @RequestMapping("/home")
+    @GetMapping("/home")
     public String home(Model model)
     {
 
@@ -86,7 +86,7 @@ public class HomeController {
 
    }
 
-    @RequestMapping("/instagramConnected")
+    @GetMapping("/instagramConnected")
     public String instagramConnected()
     {
 
@@ -95,7 +95,7 @@ public class HomeController {
 
     }
 
-    @RequestMapping("/twitterConnected")
+    @GetMapping("/twitterConnected")
     public String twitterConnected()
     {
 
@@ -116,7 +116,7 @@ public class HomeController {
         return "user_profile";
     }
 
-    @RequestMapping("/home/me")
+    @GetMapping("/home/me")
     public String Me(Model model)
     {
 
@@ -142,7 +142,7 @@ public class HomeController {
         return "profile";
     }
 
-    @RequestMapping("/home/posts")
+    @GetMapping("/home/posts")
     public String MyPosts(Model model)
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
