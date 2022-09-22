@@ -27,7 +27,7 @@ import javax.sql.DataSource;
 
 @EnableWebSecurity
 @EnableWebMvc
-
+@SpringBootApplication
 
 public class EsocietyApplication extends WebSecurityConfigurerAdapter{
 
