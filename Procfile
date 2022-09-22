@@ -1,1 +1,0 @@
-web: java -jar classes/artifacts/Esociety_jar/Esociety.jar
