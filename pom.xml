@@ -13,10 +13,10 @@
 	<groupId>com.java</groupId>
 	<artifactId>Esociety</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	
+
 	<name>Esociety</name>
 	<description>Social Media</description>
-	<packaging>jar</packaging>
+
 
 	<properties>
 		<java.version>17</java.version>
