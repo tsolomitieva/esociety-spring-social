@@ -22,7 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @ComponentScan("com.java.Esociety")
 
-public class config implements WebMvcConfigurer {
+public class config extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
 
     @Autowired
@@ -43,7 +43,7 @@ public class config implements WebMvcConfigurer {
         return daoAuthenticationProvider;
     }
 
-    @Bean
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.authenticationProvider(daoAuthenticationProvider());
 
@@ -63,7 +63,7 @@ public class config implements WebMvcConfigurer {
             }
         };
     }
-    @Bean
+    @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
@@ -89,7 +89,7 @@ public class config implements WebMvcConfigurer {
                 .csrf()
                 .disable();
     }
-    @Bean
+    @Override
     public void configure(WebSecurity web) {
         web.ignoring()
                 .antMatchers("/resources/**", "/static/**","/static/css");
