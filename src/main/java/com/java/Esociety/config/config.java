@@ -15,11 +15,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
 @Configuration
 @ComponentScan("com.java.Esociety")
-public class config extends WebSecurityConfigurerAdapter {
+
+public class config implements WebMvcConfigurer {
 
 
     @Autowired
@@ -40,7 +43,7 @@ public class config extends WebSecurityConfigurerAdapter {
         return daoAuthenticationProvider;
     }
 
-    @Override
+    @Bean
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.authenticationProvider(daoAuthenticationProvider());
 
@@ -60,7 +63,7 @@ public class config extends WebSecurityConfigurerAdapter {
             }
         };
     }
-    @Override
+    @Bean
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
@@ -86,7 +89,7 @@ public class config extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable();
     }
-    @Override
+    @Bean
     public void configure(WebSecurity web) {
         web.ignoring()
                 .antMatchers("/resources/**", "/static/**","/static/css");
