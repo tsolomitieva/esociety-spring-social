@@ -22,7 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @ComponentScan("com.java.Esociety")
 
-public class config extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+public class config extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
