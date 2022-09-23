@@ -33,13 +33,15 @@ import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.social.twitter.connect.TwitterConnectionFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
 
-@Configuration
 
+
+@EnableWebMvc
 
 public class socialConfig {
 
