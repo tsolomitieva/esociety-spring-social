@@ -19,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
-@Configuration
+@EnableWebMvc
 @ComponentScan("com.java.Esociety")
 
 public class config extends WebSecurityConfigurerAdapter {
