@@ -1,1 +1,1 @@
-web: java -Dserver.port=15100 $JAVA_OPTS -jar target/Esociety-0.0.1-SNAPSHOT.jar EsocietyApplication.class
+web: java  -jar classes/artifacts/Esociety_jar/Esociety.jar
