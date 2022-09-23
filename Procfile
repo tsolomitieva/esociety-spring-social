@@ -1,1 +1,0 @@
-web: javac EsocietyApplication.class
