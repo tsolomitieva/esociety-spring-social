@@ -1,1 +1,1 @@
-web: java -jar classes/artifacts/Esociety_jar/Esociety.jar
+web: javac EsocietyApplication.class
