@@ -53,11 +53,11 @@ public class socialConfig  {
     public ConnectionFactoryLocator addConnectionFactories() {
         ConnectionFactoryRegistry registry = new ConnectionFactoryRegistry();
         registry.addConnectionFactory(new FacebookConnectionFactory(
-            "3168103860096497",
-           "8d7466eaaf406fc54be00f955af6c1ac"));
+            "**",
+           "**"));
 
-        registry.addConnectionFactory(new InstagramConnectionFactory("1081266129443404","da3a733584c74a18f972b27b7b02820a"));
-        registry.addConnectionFactory(new TwitterConnectionFactory("FFv3iqk0WyOtmAxMnQ4GAJyur", "kfLBxD2mjXJbmyTYQogxGv4GIr46vqHouk4itC1cEgB6qFVTOy"));
+
+        registry.addConnectionFactory(new TwitterConnectionFactory("**", "**"));
 
        return registry;
 
