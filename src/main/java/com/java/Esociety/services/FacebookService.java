@@ -181,5 +181,13 @@ public class FacebookService {
         socialRepository.save(social);
     }
 
+    public void logout(){
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(auth.getName());
+        user.getSocial().setFacebookName(null);
+        user.getSocial().setFacebookPhoto(null);
+        socialRepository.save(user.getSocial());
+
+    }
 }

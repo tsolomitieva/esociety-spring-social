@@ -123,4 +123,12 @@ public class TwitterService {
         }
         return posts;
     }
+
+    public void logout(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(auth.getName());
+        user.getSocial().setTwitterName(null);
+        user.getSocial().setTwitterPhoto(null);
+        socialRepository.save(user.getSocial());
+    }
 }

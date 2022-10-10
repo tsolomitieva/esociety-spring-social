@@ -16,10 +16,7 @@ import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
-import org.springframework.social.instagram.api.Instagram;
-import org.springframework.social.instagram.api.PagedMediaList;
-import org.springframework.social.instagram.api.impl.InstagramTemplate;
-import org.springframework.social.instagram.connect.InstagramOAuth2Template;
+
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.stereotype.Controller;
@@ -43,8 +40,8 @@ public class HomeController {
     @Autowired
     FollowService followService;
 
-    @Autowired
-    InstagramService instagramService;
+
+
 
     @Autowired
     private userRepository userRepo;
@@ -93,7 +90,7 @@ public class HomeController {
        List<Post>  posts= user.getPosts();;
 
         if(user.getSocial().getFacebookName()!=null) {
-          // posts.addAll(facebookService.getFacebookFeed());
+           posts.addAll(facebookService.getFacebookFeed());
         }
         if (user.getSocial().getTwitterName()!=null){
 
@@ -103,26 +100,13 @@ public class HomeController {
         Collections.shuffle(posts);
         model.addAttribute("Feed",posts);
 
-      // Twitter twitter = new TwitterTemplate("FFv3iqk0WyOtmAxMnQ4GAJyur", "kfLBxD2mjXJbmyTYQogxGv4GIr46vqHouk4itC1cEgB6qFVTOy", "1568177439129444354-CIf1tYav13Hph0divwRCZf9LYbNJwd", "wxE6as3ufzmPTXWwqS4q4T9eHXbjshS45Kmm7fsIBAJ08");
-       // twitter.userOperations().getUserProfile().getName();
-      //  Instagram instagram = new InstagramTemplate("807956450244413","IGQVJYNUJ6NWFqUlktRG44cFZAqWmJ0XzNBam1HdlZAtS0JGUnhwUjNHMldFOXZANM3M4emdHVHE2U1hBT3A5UjI4R1NsYy1KVnNmU0kyamRtdHJINEstWUlWRFpOZAzJKWVJWaUYxcERpN0p0bGdOSHNwYgZDZD");
-       //instagramService.getInstagramFeed();
 
-       // InstagramTemplate instagramTemplate = new InstagramTemplate("1081266129443404","IGQVJWOHVIbWJYMEtfdmk5M2t2WWpNY2V3MnNrTHJOYkUtSG1iTVl1a0VyalhjcFVqNV9kajlzaUlrc0FjaVpoMFZAMc1NFTEJ4US1MUG9XZAW5MREVYd2dxcmI2WTFiZAndCb0lCM25Eczh6d3dfYmZAfSQZDZD");
-      //  PagedMediaList media =instagramTemplate.userOperations().getFeed() ;
 
         return "index";
 
    }
 
-    @GetMapping("/instagramConnected")
-    public String instagramConnected()
-    {
 
-        instagramService.saveInstagramData();
-        return "instagramConnected";
-
-    }
 
     @GetMapping("/twitterConnected")
     public String twitterConnected()
@@ -212,33 +196,6 @@ public class HomeController {
             return "register";
         }
 
-      //  if (user.getFirstname().length() < 2){
-       //     model.addAttribute("errorFirstName","First name required and must be at least 2 characters long");
-      //      return "register";
-      //  }
-
-       // if (user.getLastname().length() < 2){
-       //     model.addAttribute("errorLastName","Last name required and must be at least 2 characters long");
-       //     return "register";
-      //  }
-
-
-
-       // if (!user.getPassword().equals(user.getConfirmPassword())){
-       //     model.addAttribute("errorPassword","password dont match");
-       //     return "register";
-       // }
-
-
-       // if (!user.getPassword().matches("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,}$")){
-        //    model.addAttribute("errorPassword", "password must be at least 8 characters long,must be one lower or upper character and one special character");
-       //     return "register";
-        //}
-       // if (!(userService.isEmailUnique(theUser.getEmail()))){
-
-        //    model.addAttribute("errorEmail","email must be unique");
-        //    return "register";
-       // }
 
         Role role= new Role();
         role.setId(1);

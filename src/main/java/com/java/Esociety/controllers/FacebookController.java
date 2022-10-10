@@ -3,6 +3,7 @@ package com.java.Esociety.controllers;
 import com.java.Esociety.entities.Comment;
 import com.java.Esociety.entities.Post;
 import com.java.Esociety.entities.User;
+import com.java.Esociety.repositories.SocialRepository;
 import com.java.Esociety.repositories.userRepository;
 import com.java.Esociety.services.FacebookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +28,8 @@ public class FacebookController {
 
     @Autowired
     FacebookService facebookService;
+
+
 
 
     @GetMapping("/home/facebook")
@@ -49,6 +53,17 @@ public class FacebookController {
 
 
         return "facebook_home";
+
+    }
+
+    @GetMapping("/facebook/logout")
+    public RedirectView logout(Model model)
+    {
+
+
+        facebookService.logout();
+
+        return new RedirectView("/profile");
 
     }
 }

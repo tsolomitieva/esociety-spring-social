@@ -27,7 +27,7 @@ import org.springframework.social.connect.web.ConnectController;
 import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
-import org.springframework.social.instagram.connect.InstagramConnectionFactory;
+
 import org.springframework.social.security.AuthenticationNameUserIdSource;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
@@ -53,11 +53,11 @@ public class socialConfig  {
     public ConnectionFactoryLocator addConnectionFactories() {
         ConnectionFactoryRegistry registry = new ConnectionFactoryRegistry();
         registry.addConnectionFactory(new FacebookConnectionFactory(
-            "**",
-           "**"));
+            "",
+           ""));
 
 
-        registry.addConnectionFactory(new TwitterConnectionFactory("**", "**"));
+        registry.addConnectionFactory(new TwitterConnectionFactory("", ""));
 
        return registry;
 

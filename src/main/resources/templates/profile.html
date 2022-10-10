@@ -204,14 +204,16 @@
                                             <p class="mb-0"><img src="/facebook_logo.png" alt="" width="50" height="50" class="rounded-circle" /> </p>
                                         </div>
                                         <div class="col-sm-9">
-
-                                            <p class="mt-2"  th:unless="${User.getSocial().getFacebookName()==null}" th:text="${User.getSocial().getFacebookName()}"></p>
+                                           <div class="row">
+                                            <p class="mt-2 col-lg-6"  th:unless="${User.getSocial().getFacebookName()==null}" th:text="${User.getSocial().getFacebookName()}"></p>
+                                            <a th:href="@{/facebook/logout}" th:unless="${User.getSocial().getFacebookName()==null}" class="col-sm-2 btn btn-outline-light">Logout</a>
                                             <form th:action="@{/connect/facebook}" method="post">
                                             <input type="hidden" name="scope" value="public_profile,email,user_friends,user_posts,user_photos,user_likes,instagram_basic"/>
                                                 <input type="hidden" name="summary" value="true"/>
                                                <!-- instagram_basic,pages_show_list,instagram_content_publish,instagram_manage_insights, -->
                                             <button  type="submit"  class="btn btn-outline-primary mt-2" th:if="${User.getSocial().getFacebookName()==null}" >Connect to Facebook</button>
                                             </form>
+                                           </div>
 
                                         </div>
                                     </div>
@@ -242,11 +244,13 @@
                                             <p class="mb-0"><img src="/twitter_logo.png" alt="" width="60" height="40" class="rounded-circle" /> </p>
                                         </div>
                                         <div class="col-sm-9">
+                                            <div class="row">
                                             <form th:action="@{/twitter/connect}"  >
 
-                                            <p class=" mt-2"  th:unless="${User.getSocial().getTwitterName()==null}" th:text="${User.getSocial().getTwitterName()}"><a th:href="@{/twitter/logoout}" class="btn btn-outline-primary">Logout</a></p>
+                                            <p class=" mt-2 col-lg-8"  th:unless="${User.getSocial().getTwitterName()==null}" th:text="${User.getSocial().getTwitterName()}"></p><a th:href="@{/twitter/logoout}" th:unless="${User.getSocial().getTwitterName()==null}" class="col-sm-2 btn btn-outline-light">Logout</a>
                                             <button  type="submit" class="btn btn-outline-primary mt-2" th:if="${User.getSocial().getTwitterName()==null}" > Connect to  Twitter</button>
                                             </form>
+                                            </div>
                                         </div>
                                     </div>
 
