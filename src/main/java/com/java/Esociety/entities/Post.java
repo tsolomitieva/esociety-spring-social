@@ -14,7 +14,7 @@ public class Post {
     @Id
     @Column(name="post_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int post_id;
+    private int postId;
 
     @Column(name="date")
     private Timestamp date;
@@ -32,6 +32,10 @@ public class Post {
     @Column(name="description")
     private String description;
 
+    @Column(name="total_likes")
+    private int total_likes;
+
+
     @Column(name="image")
     private String image;
 
@@ -48,6 +52,24 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 
+    @OneToMany(mappedBy = "post")
+    private List<Like> likes;
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+
+    public int getTotal_likes() {
+        return total_likes;
+    }
+
+    public void setTotal_likes(int total_likes) {
+        this.total_likes = total_likes;
+    }
 
     public User getUser() {
         return user;
@@ -57,13 +79,7 @@ public class Post {
         this.user = user;
     }
 
-    public int getPost_id() {
-        return post_id;
-    }
 
-    public void setPost_id(int post_id) {
-        this.post_id = post_id;
-    }
 
 
 
@@ -71,9 +87,11 @@ public class Post {
         return description;
     }
 
+
     public void setDescription(String description) {
         this.description = description;
     }
+
 
     public String getImage() {
         return image;
@@ -97,5 +115,13 @@ public class Post {
 
     public void setItem(String item) {
         this.item = item;
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
     }
 }

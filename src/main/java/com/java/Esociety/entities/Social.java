@@ -8,6 +8,7 @@ public class Social {
 
     @Id
     @Column(name="social_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int social_id;
 
     @OneToOne

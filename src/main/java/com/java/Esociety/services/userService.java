@@ -3,6 +3,8 @@ package com.java.Esociety.services;
 import com.java.Esociety.entities.User;
 import com.java.Esociety.repositories.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,6 +29,23 @@ public class userService implements UserDetailsService{
                 .authorities("USER").build();
 
         return userDetails;
+
+    }
+
+
+    public String changePassword(String old_password, String new_password){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(auth.getName());
+
+        if (user.getPassword()==old_password){
+            user.setPassword(new_password);
+            userRepository.save(user);
+            return "Your password was successfully changed";
+        }
+        else{
+            return "Error in changing password. Invalid old password";
+        }
+
 
     }
 

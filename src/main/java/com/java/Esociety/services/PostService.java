@@ -1,7 +1,10 @@
 package com.java.Esociety.services;
 
+import com.java.Esociety.entities.Follow;
+import com.java.Esociety.entities.Like;
 import com.java.Esociety.entities.Post;
 import com.java.Esociety.entities.User;
+import com.java.Esociety.repositories.LikeRepository;
 import com.java.Esociety.repositories.PostRepository;
 import com.java.Esociety.repositories.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,19 +30,44 @@ public class PostService {
     @Autowired
     PostRepository postRepository;
 
+    @Autowired
+    LikeRepository likeRepository;
 
 
-    public Set<Post> getFriendsPosts() {
+    public List<Post> getFriendsPosts() {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.findByEmail(auth.getName());
-        Set<Post> AllPosts= user.getPosts();
+        List<Post> AllPosts = user.getPosts();
         AllPosts.addAll(postRepository.findAllByUserIn(user.getFollowing()));
         return AllPosts;
     }
 
 
+    public boolean likePost(Post post) {
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepo.findByEmail(auth.getName());
+
+        //unlike
+        for (Like like : post.getLikes()) {
+            if (like.getUser() == user) {
+
+                likeRepository.delete(like);
+                return false;
+
+
+            }
+        }
+
+        //like
+        Like like = new Like();
+        like.setUser(user);
+        like.setPost(post);
+
+        likeRepository.save(like);
+        return true;
+    }
 
 
 }

@@ -1,6 +1,8 @@
 package com.java.Esociety.entities;
 
+import com.sun.istack.Nullable;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -33,12 +35,28 @@ public class User {
     @NotEmpty(message = "Email cannot be empty.")
     private String email;
 
+  /*  @Column(name="title")
+    @Nullable
+    private String title;
+
+    @Column(name="phone")
+    @Nullable
+    private String phone;
+
+    @Column(name="birthday")
+    @Nullable
+    private String birthday;
+
+  @Column(name="gender")
+    @Nullable
+    private String gender;
+*/
     @ManyToOne
     @JoinColumn(name="role_id")
     private Role role;
 
     @OneToMany(mappedBy="user")
-    private Set<Post> posts;
+    private List<Post> posts;
 
     @OneToOne(mappedBy="user")
     private Social social;
@@ -46,6 +64,17 @@ public class User {
     @Column(name = "photo", length = Integer.MAX_VALUE, nullable = true)
     private String photo;
 
+    @Column(name= "birthday")
+    private Date birthday;
+
+    @Column(name= "gender")
+    private String gender;
+
+    @Column(name= "phone")
+    private String phone;
+
+    @Column(name= "title")
+    private String title;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="followers",
@@ -61,6 +90,49 @@ public class User {
     )
     private Set<User> followers;
 
+    @OneToMany
+    @JoinTable(name="likes", joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "post_id"))
+    private List<Post> likedPosts;
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public List<Post> getLikedPosts() {
+        return likedPosts;
+    }
+
+    public void setLikedPosts(List<Post> likedPosts) {
+        this.likedPosts = likedPosts;
+    }
 
     public Social getSocial() {
       return social;
@@ -94,11 +166,11 @@ public class User {
         this.user_id = user_id;
     }
 
-    public Set<Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(Set<Post> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 

@@ -13,6 +13,10 @@ public interface PostRepository extends JpaRepository<Post,Integer> {
 
     Set<Post> findAllByUserIn(Set<User> following);
 
+    Post findByPostId(int post_id);
+
+
+
 
 
 }

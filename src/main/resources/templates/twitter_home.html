@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+
+<head>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    <title>Twitter</title>
+</head>
+<style>
+
+
+</style>
+<body>
+<nav class="navbar justify-content-between sticky-top" >
+    <a class="navbar-brand" href="#">
+        <img src="/esociety_logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        E-society
+    </a>
+    <form class="form-inline" th:action="@{/home/profile}" method="post">
+        <input class="form-control mr-sm-2" type="search" name="email" placeholder="Search" aria-label="Search">
+        <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+
+
+
+
+
+
+
+<div class="container-fluid ">
+    <div class="row  ">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-0 px-0">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-0 pt-2 text-white min-vh-100 "style="position:fixed;background-color:#D1FBFC;">
+
+                <ul class="nav nav-pills flex-column mb-sm-2 mb-0 align-items-center align-items-sm-start mt-2" style="width:100%;" id="menu">
+
+                    <li class="list-group-item list-group-item-action px-3 border-0 rounded mt-4">
+                        <a th:href="@{/home}" class="nav-link align-middle px-0">
+                            <i class="bi"> <img src="/esociety_logo.png" width="20px" height="20px"></i> <span class="ms-1 d-none d-sm-inline">Esociety</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action px-3 border-0 rounded mt-4">
+                        <a th:href="@{/home/facebook}" class="nav-link align-middle px-0">
+                            <i class="bi"> <img src="/facebook_logo.png" width="20px" height="20px"></i><span class="ms-1 d-none d-sm-inline"> Facebook</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action px-3 border-0 rounded mt-4">
+                        <a th:href="@{/home/twitter}" class="nav-link align-middle px-0">
+                            <i class="bi"> <img src="/twitter_logo.png" width="20px" height="20px"></i><span class="ms-1 d-none d-sm-inline"> Twitter</span>
+                        </a>
+                    </li>
+
+                    <li class="list-group-item list-group-item-action px-3 border-0 rounded mt-4">
+                        <a th:href="@{/home/me}" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-person"></i> <span class="ms-0 d-none d-sm-inline  " >Profile</span>
+                        </a>
+                    </li>
+
+
+                    <li class="list-group-item list-group-item-action px-3 border-0 rounded mt-4">
+                        <a th:href="@{home/settings}" class="nav-link align-middle px-0">
+                            <i class="bi bi-gear"></i><span class="ms-2 d-none d-sm-inline">Settings</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown pb-4">
+                    <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img th:src="${User.getPhoto()}" th:unless="${User.getPhoto()==null}" alt="" width="30" height="30" class="rounded-circle">
+                        <img src="/empty_profile.png" th:unless="${User.getPhoto()==null}" alt="" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1" th:text="${User.getEmail()}"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+
+                        <li><a class="dropdown-item" href="@{/home/me}">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="@{/logout}">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-md" >
+            <section class="main-content">
+
+
+
+
+                <th:block th:each="post: ${Feed}" >
+
+                    <div class="container"  >
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <div  class="post-block border-twitter">
+
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex mb-3">
+                                            <div class="mr-2">
+                                                <a href="#!" class="text-dark"><img th:src="${post.getUser().getPhoto()}" th:unless="${post.getUser.getPhoto()==null}" class="author-img"><img src="/empty_profile.png" th:if="${post.getUser.getPhoto()==null}" class="author-img"></a>
+                                            </div>
+                                            <div>
+                                                <h5 class="mb-0" th:text="${post.getUser().getSocial().getTwitterName()}"></h5>
+
+                                                <small class="text-twitter">twitter</small>
+                                            </div>
+                                        </div>
+                                        <div class="post-block__user-options">
+
+                                            <img src="/twitter_logo.png" width="50px" height="40px">
+
+
+                                        </div>
+                                    </div>
+                                    <div class="post-block__content ">
+                                        <p th:text="${post.getDescription()}"></p>
+
+                                    </div>
+                                    <hr>
+                                    <div class="mb-3">
+
+                                        <a  class="text-danger mr-2"><span><i class="fa fa-heart"></i></span></a> <a  class="text-muted font-weight-bold" th:text="${post.getTotal_likes()}"> people</a></p>
+                                    </div>
+
+                                    <div class="post-block__comments">
+
+                                        <!-- Comment Input -->
+
+                                        <!-- Comment content -->
+
+                                        <!-- More Comments -->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </th:block>
+            </section>
+        </div>
+
+    </div>
+</div>
+
+
+
+</body>
+</html>

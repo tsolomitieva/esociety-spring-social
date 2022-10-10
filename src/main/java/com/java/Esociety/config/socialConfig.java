@@ -18,6 +18,7 @@ import org.springframework.social.UserIdSource;
 import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurer;
+import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.*;
 
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
@@ -41,9 +42,9 @@ import javax.sql.DataSource;
 
 
 
-@EnableWebMvc
 
-public class socialConfig {
+@Configuration
+public class socialConfig  {
 
     @Autowired
     DataSource dataSource;
@@ -52,15 +53,19 @@ public class socialConfig {
     public ConnectionFactoryLocator addConnectionFactories() {
         ConnectionFactoryRegistry registry = new ConnectionFactoryRegistry();
         registry.addConnectionFactory(new FacebookConnectionFactory(
-            "1044551659727911",
-           "c3ee51fc1b33108f554a8a9ff8415115"));
+            "3168103860096497",
+           "8d7466eaaf406fc54be00f955af6c1ac"));
 
-        registry.addConnectionFactory(new InstagramConnectionFactory("807956450244413","5fe3bbfb4e8bce50846518d56d431df6"));
-        registry.addConnectionFactory(new TwitterConnectionFactory("JN6fhreV3vCMs9a6SVfKs36sQ", "g07NDnAipVHFwPTEDBGnUUApyE3y2uZvNS81r4MnqiMNIqBDN9"));
+        registry.addConnectionFactory(new InstagramConnectionFactory("1081266129443404","da3a733584c74a18f972b27b7b02820a"));
+        registry.addConnectionFactory(new TwitterConnectionFactory("FFv3iqk0WyOtmAxMnQ4GAJyur", "kfLBxD2mjXJbmyTYQogxGv4GIr46vqHouk4itC1cEgB6qFVTOy"));
+
        return registry;
 
     }
-
+    @Bean
+    public UserIdSource getUserIdSource() {
+        return new AuthenticationNameUserIdSource();
+    }
 
     @Bean
     public UsersConnectionRepository getUsersConnectionRepository() {

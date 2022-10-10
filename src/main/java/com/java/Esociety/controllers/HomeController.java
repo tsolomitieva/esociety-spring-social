@@ -1,8 +1,7 @@
 package com.java.Esociety.controllers;
 
-import com.java.Esociety.entities.Post;
-import com.java.Esociety.entities.Role;
-import com.java.Esociety.entities.User;
+import com.java.Esociety.entities.*;
+import com.java.Esociety.repositories.SocialRepository;
 import com.java.Esociety.repositories.roleRepository;
 import com.java.Esociety.repositories.userRepository;
 import com.java.Esociety.services.*;
@@ -17,10 +16,17 @@ import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.instagram.api.Instagram;
+import org.springframework.social.instagram.api.PagedMediaList;
+import org.springframework.social.instagram.api.impl.InstagramTemplate;
+import org.springframework.social.instagram.connect.InstagramOAuth2Template;
+import org.springframework.social.twitter.api.Twitter;
+import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -55,6 +61,12 @@ public class HomeController {
     TwitterService twitterService;
 
     @Autowired
+    CommentService commentService;
+
+    @Autowired
+    SocialRepository socialRepository;
+
+    @Autowired
     userService userService;
 
     @Autowired
@@ -74,14 +86,31 @@ public class HomeController {
         User user = userRepo.findByEmail(auth.getName());
         if(user==null) System.out.println("User is null");
         model.addAttribute("User",user);
-
+        model.addAttribute("comment",new Comment());
         model.addAttribute("post",new Post());
-       List<Post>  posts= new ArrayList<Post>();
 
-      // List<Post> posts=facebookService.getFacebookFeed();
-        posts.addAll(user.getPosts());
+
+       List<Post>  posts= user.getPosts();;
+
+        if(user.getSocial().getFacebookName()!=null) {
+          // posts.addAll(facebookService.getFacebookFeed());
+        }
+        if (user.getSocial().getTwitterName()!=null){
+
+           // posts.addAll(twitterService.getTwitterFeed());
+           // posts.addAll(twitterService.getUserTweets());
+        }
         Collections.shuffle(posts);
         model.addAttribute("Feed",posts);
+
+      // Twitter twitter = new TwitterTemplate("FFv3iqk0WyOtmAxMnQ4GAJyur", "kfLBxD2mjXJbmyTYQogxGv4GIr46vqHouk4itC1cEgB6qFVTOy", "1568177439129444354-CIf1tYav13Hph0divwRCZf9LYbNJwd", "wxE6as3ufzmPTXWwqS4q4T9eHXbjshS45Kmm7fsIBAJ08");
+       // twitter.userOperations().getUserProfile().getName();
+      //  Instagram instagram = new InstagramTemplate("807956450244413","IGQVJYNUJ6NWFqUlktRG44cFZAqWmJ0XzNBam1HdlZAtS0JGUnhwUjNHMldFOXZANM3M4emdHVHE2U1hBT3A5UjI4R1NsYy1KVnNmU0kyamRtdHJINEstWUlWRFpOZAzJKWVJWaUYxcERpN0p0bGdOSHNwYgZDZD");
+       //instagramService.getInstagramFeed();
+
+       // InstagramTemplate instagramTemplate = new InstagramTemplate("1081266129443404","IGQVJWOHVIbWJYMEtfdmk5M2t2WWpNY2V3MnNrTHJOYkUtSG1iTVl1a0VyalhjcFVqNV9kajlzaUlrc0FjaVpoMFZAMc1NFTEJ4US1MUG9XZAW5MREVYd2dxcmI2WTFiZAndCb0lCM25Eczh6d3dfYmZAfSQZDZD");
+      //  PagedMediaList media =instagramTemplate.userOperations().getFeed() ;
+
         return "index";
 
    }
@@ -106,41 +135,35 @@ public class HomeController {
 
     @PostMapping (value="/home/profile")
     public String profile(@RequestParam(name="email") String email, Model model)
-    {
-
+    {Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User current_user = userRepo.findByEmail(auth.getName());
+        model.addAttribute("current_user",current_user);
         User profile_user= userRepo.findByEmail(email);
-        model.addAttribute("profile",profile_user);
+        model.addAttribute("User",profile_user);
         model.addAttribute("following",followService.CheckIfFollowing(profile_user));
+
+        List<Post> posts = profile_user.getPosts();
+
+        //if user is on facebook
+        if(profile_user.getSocial().getFacebookName()!=null) {
+
+           // posts.addAll(facebookService.getUsersPosts());
+
+        }
+        if (profile_user.getSocial().getTwitterName()!=null){
+
+            // posts.addAll(twitterService.getTwitterFeed());
+            // posts.addAll(twitterService.getUserTweets());
+        }
+
+        model.addAttribute("post",new Post());
+        model.addAttribute("posts",posts);
 
 
         return "user_profile";
     }
 
-    @GetMapping("/home/me")
-    public String Me(Model model)
-    {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepo.findByEmail(auth.getName());
-        List<Post>  posts= new ArrayList<Post>();
-
-
-       // get facebook posts
-       //List<Post> posts = facebookService.getUsersPosts();
-
-        //add e-society posts
-       posts.addAll(user.getPosts());
-
-        //save to model
-        model.addAttribute("User",user);
-        model.addAttribute("post",new Post());
-        model.addAttribute("posts",posts);
-
-
-
-
-        return "profile";
-    }
 
     @GetMapping("/home/posts")
     public String MyPosts(Model model)
@@ -176,6 +199,7 @@ public class HomeController {
     @GetMapping("/register")
     public String register(Model model ){
         model.addAttribute("user", new User());
+
 
         return "register";
     }
@@ -220,8 +244,14 @@ public class HomeController {
         role.setId(1);
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setRole(role);
+        user.setPhoto("/empty_profile.png");
+
 
         userRepo.save(user);
+
+        Social social=new Social();
+        social.setUser(user);
+        socialRepository.save(social);
         return "register_success";
     }
 
@@ -229,12 +259,26 @@ public class HomeController {
  @PostMapping("/home/follow")
   public String followUser(@RequestParam(name="email") String email, Model  model) {
 
-        //find user by email
-        User user_profile = userRepo.findByEmail(email);
 
+     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+     User current_user = userRepo.findByEmail(auth.getName());
+     model.addAttribute("current_user",current_user);
+     User profile_user= userRepo.findByEmail(email);
+     model.addAttribute("User",profile_user);
+     model.addAttribute("following",followService.followUser(profile_user));
 
-        model.addAttribute("following",followService.followUser(user_profile));
-        model.addAttribute("profile",user_profile);
+     List<Post> posts = profile_user.getPosts();
+
+     //if user is on facebook
+     if(profile_user.getSocial().getFacebookName()!=null) {
+
+         posts.addAll(facebookService.getUsersPosts());
+
+     }
+
+     model.addAttribute("post",new Post());
+     model.addAttribute("posts",posts);
+
 
         //take current user
      return "user_profile";
@@ -243,12 +287,12 @@ public class HomeController {
 
     }
 
-    @GetMapping(value="/saveData")
+    @GetMapping(value="/saveFacebook")
     public RedirectView saveFacebook(){
 
          facebookService.saveFacebookData();
 
-         return new RedirectView("/home/me");
+         return new RedirectView("/profile");
 
 
     }
@@ -258,10 +302,20 @@ public class HomeController {
 
         twitterService.saveTwitterData();
 
-        return new RedirectView("/home/me");
+        return new RedirectView("/profile");
 
 
     }
+
+
+    @PostMapping("/home/comment")
+    public RedirectView addComment(@ModelAttribute Comment comment,  BindingResult result) {
+
+
+     commentService.addComment(comment);
+
+     return new RedirectView("/home");
+     }
 
 
 

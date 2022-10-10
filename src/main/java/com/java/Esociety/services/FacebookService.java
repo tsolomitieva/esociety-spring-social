@@ -63,6 +63,8 @@ public class FacebookService {
                 //myPost.setDate((Timestamp) p.getCreatedTime());
                 myPost.setImage(p.getPicture());
                 myPost.setDescription(p.getDescription());
+
+               // myPost.setTotal_likes(facebook.likeOperations().getLikes(p.getId()).getTotalCount());
                 myPost.setItem("facebook");
                 posts.add(myPost);
             }
@@ -100,6 +102,8 @@ public class FacebookService {
                 //myPost.setDate((Timestamp) p.getCreatedTime());
                 myPost.setImage(p.getPicture());
                 myPost.setDescription(p.getDescription());
+          //      myPost.setLikes(facebook.likeOperations().getLikes(p.getId()).getTotalCount());
+
                 myPost.setItem("facebook");
 
 
@@ -125,6 +129,7 @@ public class FacebookService {
         for (int i=0; i<friends.size(); i++){
 
             Social social= socialRepository.findByFacebookName(facebook.friendOperations().getFriendProfiles().get(i).getName());
+          if (social!=null){
              User postUser= social.getUser();
            // User postUser = userRepository.findByfacebook.friendOperations().getFriendProfiles().get(i).getEmail());
             //if i follow friend in e society
@@ -136,6 +141,7 @@ public class FacebookService {
                         //myPost.setDate((Timestamp) p.getCreatedTime());
                         myPost.setImage(p.getPicture());
                         myPost.setDescription(p.getDescription());
+                      //  myPost.setTotal_likes(facebook.likeOperations().getLikes(p.getId()).getTotalCount());
                         myPost.setItem("facebook");
                         //take every comment
                      //   for(org.springframework.social.facebook.api.Comment c:facebook.commentOperations().getComments(p.getObjectId())) {
@@ -153,6 +159,7 @@ public class FacebookService {
                     }
                 }
             }
+          }
 
         }
         return posts;

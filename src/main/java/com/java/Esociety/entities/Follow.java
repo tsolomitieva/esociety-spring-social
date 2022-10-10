@@ -10,6 +10,7 @@ public class Follow {
 
     @Id
     @Column(name="follow_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int follow_id;
 
 

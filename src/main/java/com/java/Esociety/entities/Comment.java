@@ -1,6 +1,8 @@
 package com.java.Esociety.entities;
 
 
+import org.hibernate.annotations.GeneratorType;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -11,6 +13,7 @@ public class Comment {
 
     @Id
     @Column(name="comment_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int comment_id;
 
 

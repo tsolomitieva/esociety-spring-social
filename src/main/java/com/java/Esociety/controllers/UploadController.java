@@ -49,10 +49,12 @@ public class UploadController {
         User user = userRepo.findByEmail(auth.getName());
 
         post.setUser(user);
+        post.setImage("/"+ fileNames.toString());
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         post.setDate(timestamp);
-        post.setImage(fileNames.toString());
+        post.setItem("esociety");
+
         postRepository.save(post);
         return new RedirectView("home");
     }

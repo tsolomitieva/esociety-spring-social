@@ -1,6 +1,7 @@
 package com.java.Esociety.services;
 
 
+import com.java.Esociety.entities.Post;
 import com.java.Esociety.entities.Social;
 import com.java.Esociety.entities.User;
 import com.java.Esociety.repositories.SocialRepository;
@@ -13,7 +14,11 @@ import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.instagram.api.Instagram;
+import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class InstagramService {
@@ -44,5 +49,25 @@ public class InstagramService {
        social.setInstagramName( instagram.userOperations().getUser().getUsername());
        // social.setFacebookPhoto(connection.getImageUrl());
        // socialRepository.save(social);
+    }
+    public List<Post> getInstagramFeed() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        ConnectionRepository repository = usersConnectionRepository.createConnectionRepository(auth.getName());
+        User user = userRepository.findByEmail(auth.getName());
+
+        Connection<Instagram> connection = repository.findPrimaryConnection(Instagram.class);
+
+
+
+
+
+
+        Instagram instagram = connection.getApi();
+
+
+
+        return new ArrayList<Post>();
     }
 }

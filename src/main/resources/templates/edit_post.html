@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit post's details</title>
+</head>
+
+
+<!DOCTYPE html>
+
+
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+    <title>Index</title>
+</head>
+<style>
+
+</style>
+<body>
+
+
+<nav class="navbar justify-content-between " >
+    <a class="navbar-brand" href="#">
+        <img src="/esociety_logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        E-society
+    </a>
+    <form class="form-inline" th:action="@{/home/profile}" method="post">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+
+
+
+
+
+
+
+<div class="container-fluid ">
+
+
+
+      <div class="container py-5" style="width:500px;">
+
+            <div class="col-lg-12">
+                <div  class="post-block ">
+
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex mb-3">
+                            <div class="mr-2">
+                                <a href="#!" class="text-dark"><img th:src="${post.getUser().getPhoto()}" class="author-img"></a>
+                            </div>
+                            <div>
+                                <h5 class="mb-0" th:text="${post.getUser().getSocial().getFacebookName()}"></h5>
+                                <small class="text-success">e-society</small>
+                            </div>
+                        </div>
+                        <div class="post-block__user-options">
+                            <form th:action="@{/post/delete}" method="post" id="edit"   >
+                                <input type="hidden" th:name="post_id" th:value="${post.getPostId()}">
+                                <button type="submit" class="btn btn-outline-danger"><i class="fa fa-trash mr-1"></i>Delete</i></button>
+                            </form>
+
+                        </div>
+                    </div>
+                    <form th:action="@{/post/update}"  method="post">
+                        <div class="post-block__content ">
+                            <input type="hidden" name="post_id" th:value="${post.getPostId()}"/>
+                            <textarea class="form-control rounded-0"  th:name="description"  th:placeholder="${post.getDescription()}" rows="3"></textarea>
+                            <br><br>
+                            <img th:src="${post.getImage()}"  class="post-block__content img" name="image" />
+                        </div>
+                        <hr>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <div class="d-flex">
+                                    <a href="#!" class="text-danger mr-2"><span><i class="fa fa-heart"></i></span></a>
+                                    <a href="#!" class="text-dark mr-2"><span>Comment</span></a>
+                                </div>
+
+                            </div>
+                            <p class="mb-0">Liked by <a href="#!" class="text-muted font-weight-bold">John doe</a> & <a href="#!" class="text-muted font-weight-bold">25 others</a></p>
+                        </div>
+                        <hr>
+
+
+                    <button type="submit" class="btn btn-primary float-right" >Save Data</button>
+                </form>
+                </div>
+            </div>
+    </div>
+</div>
+</body>
+</html>
